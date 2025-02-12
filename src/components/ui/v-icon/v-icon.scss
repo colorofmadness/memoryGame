@@ -1,0 +1,9 @@
+.icon {
+  display: inline-block;
+  stroke-width: 1;
+  vertical-align: middle;
+
+  &:hover {
+    stroke-width: 4;
+  }
+}

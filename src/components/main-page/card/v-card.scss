@@ -1,0 +1,34 @@
+.card {
+  width: var(--v-card-width, 100%);
+  height: var(--v-card-height, 100%);
+  perspective: 1000px;
+  position: relative;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+
+  &__front,
+  &__back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--v-card-radius, 16px);
+    transform: rotateY(180deg);
+  }
+
+  &__front {
+    background-color: var(--tertiary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__back {
+    background-color: var(--tertiary);
+    transform: rotateY(0deg);
+  }
+
+  &--active {
+    transform: rotateY(180deg);
+  }
+}

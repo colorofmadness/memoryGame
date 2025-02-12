@@ -1,0 +1,22 @@
+.btn {
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  color: var(--text-contrast);
+  gap: 10px;
+  border-radius: 6px;
+  transition: var(--transition);
+
+  &--disabled {
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  &:focus-visible,
+  &:hover {
+    opacity: 0.9;
+    cursor: pointer;
+  }
+}

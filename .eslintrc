@@ -1,0 +1,112 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2022": true,
+    "node": true
+  },
+  "extends": [
+    "prettier",
+    "airbnb-base",
+    "plugin:vue/vue3-essential",
+    "@vue/eslint-config-typescript",
+    "plugin:vue/vue3-recommended",
+    "eslint:recommended",
+    "@vue/typescript/recommended",
+    "@vue/eslint-config-prettier/skip-formatting",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "plugins": [
+    "eslint-plugin-import",
+    "eslint-plugin-import-helpers"
+  ],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "info",
+          "error"
+        ]
+      }
+    ],
+    "vue/multi-word-component-names": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
+    "no-plusplus": "off",
+    "no-return-assign": "off",
+    "import/newline-after-import": [
+      "error"
+    ],
+    "import-helpers/order-imports": [
+      "error",
+      {
+        "newlinesBetween": "always",
+        "groups": [
+          "module",
+          "/types($|/)/",
+          "/^@/helpers($|/)/",
+          "/^@/api($|/)/",
+          "/^@/contexts($|/)/",
+          "/^@/hooks($|/)/",
+          "/^@/layouts($|/)/",
+          "/^@/ui($|/)/",
+          "/^@/components($|/)/",
+          "/^@/store($|/)/",
+          "/^@/assets($|/)/",
+          [
+            "parent",
+            "sibling",
+            "index"
+          ],
+          "/\\.json/"
+        ]
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "ts": "never"
+      }
+    ],
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/ban-ts-comment": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./"
+      },
+      "alias": {
+        "map": [
+          [
+            "@pages",
+            "@assets",
+            "@components",
+            "@ui",
+            "@",
+            "./src"
+          ]
+        ],
+        "extensions": [
+          ".js",
+          ".ts",
+          ".vue",
+          ".scss"
+        ]
+      }
+    }
+  }
+}
