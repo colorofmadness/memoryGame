@@ -187,7 +187,7 @@
   background-image: url("@/assets/icons/modal/start.svg");
   background-position: center;
   background-size: 85%;
-  
+
   @include mobile {
     background-image: none;
   }
@@ -201,6 +201,17 @@
   justify-items: center;
   text-align: center;
   padding: 47px 24px 68px;
+
+  @media (min-width: 901px) and (min-height: 541px) {
+    padding: calc(var(--apx, 1px) * 47) calc(var(--apx, 24px) * 36) calc(var(--apx, 1px) * 68);
+  }
+
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
 
   &__title {
     color: var(--primary);
@@ -234,5 +245,16 @@
     margin-top: auto;
     width: 142px;
     height: 43px;
+    font-size: 16px;
+
+    @media (min-width: 901px) and (min-height: 541px) {
+      font-size: calc(var(--apx, 1px) * 16);
+      width: calc(var(--apx, 1px) * 142);
+      height: calc(var(--apx, 1px) * 43);
+    }
+
+    @include mobile {
+      margin-top: 0;
+    }
   }
 }
