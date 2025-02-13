@@ -52,7 +52,7 @@
 
 <script lang="ts" setup>
 import { computed, onBeforeMount, onMounted, ref, watch } from 'vue';
-import deck from '@pages/main-page/const';
+import deck, { difficulties, TDifficulty } from '@pages/main-page/const';
 import { useIsOpen, useTime } from '@/composables';
 import createDeck from '@/composables/useCreateDesk';
 import TopBar from '@components/main-page/top-bar';
@@ -140,14 +140,6 @@ const startNewGame = () => {
     closeNewGameModal();
     startGame();
   }
-};
-type TDifficulty = 'easy' | 'normal' | 'hard' | 'extreme';
-
-const difficulties: Record<TDifficulty, number> = {
-  easy: 6,
-  normal: 8,
-  hard: 10,
-  extreme: 15
 };
 
 const changeDifficulty = (difficulty: TDifficulty) => {
