@@ -65,7 +65,7 @@
 }
 
 @mixin adaptive {
-  @media (min-width: 901px) and (min-height: 541px) {
+  @media (min-width: 901px) and (max-width: 1920px) and (min-height: 541px) {
     @content
   }
 }

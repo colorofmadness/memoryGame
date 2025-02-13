@@ -25,6 +25,7 @@
   justify-content: center;
   align-items: center;
   color: var(--white);
+  margin-top: 10px;
 
   & .btn {
     padding: 5px;
@@ -32,6 +33,13 @@
     height: 30px;
     font-size: 14px;
 
+    @include adaptive {
+      border-radius: calc(var(--apx, 1px) * 6);
+      width: calc(var(--apx, 1px) * 30);
+      height: calc(var(--apx, 1px) * 30);
+      font-size: calc(var(--apx, 1px) * 14);
+      padding: calc(var(--apx, 1px) * 5);
+    }
   }
 }
 
