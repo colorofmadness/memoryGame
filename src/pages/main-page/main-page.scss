@@ -1,40 +1,5 @@
 @use '@assets/style/mixins' as *;
 
-.grid {
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-
-  position: absolute;
-  gap: 10px;
-  left: 76px;
-  top: 120px;
-  width: 591px;
-  height: 790px;
-
-  @media (min-width: 901px) and (min-height: 541px) {
-    gap: calc(var(--apx, 1px) * 10);
-    left: calc(var(--apx, 1px) * 76);
-    top: calc(var(--apx, 1px) * 120);
-    width: calc(var(--apx, 1px) * 591);
-    height: calc(var(--apx, 1px) * 790);
-  }
-
-  @include mobile {
-    width: 100%;
-    margin: 20px 0;
-    height: calc(100% - 104px);
-    position: relative;
-    left: 0;
-    top: 0;
-  }
-}
-
-.shuffle-cards-move {
-  transition: transform 0.7s ease
-}
-
 .screen {
   display: flex;
   flex-direction: column;
@@ -54,6 +19,22 @@
   }
 }
 
+.difficulties {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  color: var(--white);
+
+  & .btn {
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+
+  }
+}
+
 .phone {
   width: 743px;
   height: 995px;
@@ -61,7 +42,8 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-image: url("@/assets/icons/main/phone.svg");
-  @media (min-width: 901px) and (min-height: 541px) {
+
+  @include adaptive {
     width: calc(var(--apx, 1px) * 743);
     height: calc(var(--apx, 1px) * 995);
   }
@@ -75,7 +57,7 @@
   width: 743px;
   height: 995px;
   position: relative;
-  @media (min-width: 901px) and (min-height: 541px) {
+  @include adaptive {
     width: calc(var(--apx, 1px) * 743);
     height: calc(var(--apx, 1px) * 995);
   }
@@ -101,88 +83,6 @@
   }
 }
 
-.top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: absolute;
-  width: 591px;
-  left: 76px;
-  top: 25px;
-
-  @media (min-width: 901px) and (min-height: 541px) {
-    width: calc(var(--apx, 1px) * 591);
-    left: calc(var(--apx, 1px) * 76);
-  }
-
-  @include mobile {
-    width: 100%;
-    position: relative;
-    left: 0;
-    top: 0;
-  }
-
-  &__plane {
-    width: 254px;
-    height: 54px;
-    border-radius: 38px;
-    background: rgb(255, 255, 255, 0.2);
-
-    @media (min-width: 901px) and (min-height: 541px) {
-      width: calc(var(--apx, 1px) * 254);
-      height: calc(var(--apx, 1px) * 54);
-    }
-    @include mobile {
-      display: none;
-    }
-  }
-
-  &__time,
-  &__pairs {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    min-width: 150px;
-    font-size: 32px;
-    @media (min-width: 901px) and (min-height: 541px) {
-      min-width: calc(var(--apx, 1px) * 150);
-      font-size: calc(var(--apx, 1px) * 32);
-    }
-    @include mobile {
-      font-size: 21px;
-    }
-  }
-
-  &__pairs {
-    justify-content: flex-end;
-  }
-}
-
-.turns {
-  display: flex;
-  position: absolute;
-  font-size: 28px;
-  left: 76px;
-  bottom: 32px;
-  width: 591px;
-  justify-content: space-between;
-
-  @media (min-width: 901px) and (min-height: 541px) {
-    font-size: calc(var(--apx, 1px) * 28);
-    left: calc(var(--apx, 1px) * 76);
-    bottom: calc(var(--apx, 1px) * 32);
-    width: calc(var(--apx, 1px) * 591);
-  }
-
-  @include mobile {
-    width: 100%;
-    left: initial;
-    bottom: initial;
-    position: relative;
-    font-size: 21px;
-  }
-}
-
 :deep(.start-modal .modal) {
   background-image: url("@/assets/icons/modal/start.svg");
   background-position: center;
@@ -190,71 +90,5 @@
 
   @include mobile {
     background-image: none;
-  }
-}
-
-.info {
-  display: grid;
-  height: 100%;
-  width: 100%;
-  justify-content: center;
-  justify-items: center;
-  text-align: center;
-  padding: 47px 24px 68px;
-
-  @media (min-width: 901px) and (min-height: 541px) {
-    padding: calc(var(--apx, 1px) * 47) calc(var(--apx, 24px) * 36) calc(var(--apx, 1px) * 68);
-  }
-
-  @include mobile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-  }
-
-  &__title {
-    color: var(--primary);
-    font-size: 36px;
-
-    @media (min-width: 901px) and (min-height: 541px) {
-      font-size: calc(var(--apx, 1px) * 36);
-    }
-  }
-
-  &__score {
-    color: var(--secondary);
-    font-size: 28px;
-
-    @media (min-width: 901px) and (min-height: 541px) {
-      font-size: calc(var(--apx, 1px) * 28);
-    }
-  }
-
-  &__description {
-    color: var(--secondary);
-    max-width: 232px;
-    font-size: 24px;
-
-    @media (min-width: 901px) and (min-height: 541px) {
-      font-size: calc(var(--apx, 1px) * 24);
-    }
-  }
-
-  .repeat {
-    margin-top: auto;
-    width: 142px;
-    height: 43px;
-    font-size: 16px;
-
-    @media (min-width: 901px) and (min-height: 541px) {
-      font-size: calc(var(--apx, 1px) * 16);
-      width: calc(var(--apx, 1px) * 142);
-      height: calc(var(--apx, 1px) * 43);
-    }
-
-    @include mobile {
-      margin-top: 0;
-    }
   }
 }

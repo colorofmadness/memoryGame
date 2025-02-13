@@ -63,3 +63,9 @@
     @content;
   }
 }
+
+@mixin adaptive {
+  @media (min-width: 901px) and (min-height: 541px) {
+    @content
+  }
+}

@@ -1,65 +1,66 @@
 <template>
+  <game-loader v-if="loading" />
   <div class="screen">
     <div class="game">
       <div class="content">
         <div class="phone" />
-        <div class="top-bar">
-          <div class="top-bar__time">
-            <v-icon name="main/time" size="32" />
-            {{ time }}
-          </div>
-          <div class="top-bar__plane"></div>
-          <div class="top-bar__pairs">
-            {{ remainingPairs }}
-            <v-icon name="main/pairs" size="32" />
-          </div>
-        </div>
-        <transition-group class="grid" name="shuffle-cards" tag="section">
-          <v-card
-            v-for="card of cardList"
-            :key="`${card.value}-${card.variant}`"
-            :active="card.active"
-            :icon="card.value"
-            @click="flipCard(card)"
-          />
-        </transition-group>
-        <div class="turns">
-          <p>Сделано ходов:</p>
-          <span>{{ turns }}</span>
-        </div>
+        <top-bar :pairs="remainingPairs" :time="time" />
+
+        <game-board
+          :card-list="cardList"
+          :difficult="difficult"
+          :loading="loading"
+          @card-click="flipCard"
+        />
+
+        <bottom-bar :turns="turns" />
       </div>
     </div>
 
-    <transition name="fade">
-      <v-modal v-if="isOpen">
-        <div class="info">
-          <div class="info__title">Вы победили!</div>
-          <div class="info__score">Ходов: {{ turns }} <br />Время: {{ time }}</div>
-          <v-button class="repeat" @click="startGame">Ещё раз!</v-button>
-        </div>
-      </v-modal>
-    </transition>
+    <modal-info
+      v-model="isOpen"
+      button-name="Ещё раз!"
+      title="Вы победили!"
+      @button-click="startGame"
+    >
+      Ходов: {{ turns }}<br />
+      Время: {{ time }}
+    </modal-info>
 
-    <transition name="fade">
-      <v-modal v-if="isNewGameModalOpen" class="start-modal">
-        <div class="info">
-          <div class="info__title">Игра на память</div>
-          <div class="info__description">Необходимо найти пары карточек</div>
-          <v-button class="repeat" @click="startNewGame">Старт!</v-button>
-        </div>
-      </v-modal>
-    </transition>
+    <modal-info
+      v-model="isNewGameModalOpen"
+      button-name="Старт!"
+      class="start-modal"
+      title="Игра на память"
+      @button-click="startNewGame"
+    >
+      Необходимо найти пары карточек
+
+      <div class="difficulties">
+        <v-button
+          v-for="(diff, key) of difficulties"
+          :key="key"
+          :active="difficult === diff"
+          @click="changeDifficulty(key)"
+        >
+          {{ diff }}
+        </v-button>
+      </div>
+    </modal-info>
   </div>
 </template>
 
 <script lang="ts" setup>
-import VCard from '@components/main-page/card';
-import { VButton, VIcon } from '@components/ui';
 import { computed, onBeforeMount, onMounted, ref, watch } from 'vue';
 import deck from '@pages/main-page/const';
 import { useIsOpen, useTime } from '@/composables';
 import createDeck from '@/composables/useCreateDesk';
-import VModal from '@components/ui/v-modal/v-modal.vue';
+import TopBar from '@components/main-page/top-bar';
+import BottomBar from '@components/main-page/bottom-bar';
+import GameBoard from '@components/main-page/game-board/game-board.vue';
+import ModalInfo from '@components/main-page/modal-info';
+import { VButton } from '@components/ui';
+import GameLoader from '@components/main-page/game-loader';
 
 import { ICard } from '@/types';
 
@@ -69,14 +70,16 @@ const cardList = ref<ICard[]>([]);
 const userCanFlipCard = ref<boolean>(true);
 const userSelection = ref<ICard[]>([]);
 const gameStarts = ref<boolean>(false);
+const loading = ref<boolean>(false);
 const turns = ref<number>(0);
+const difficult = ref<number>(6);
+
 const { isOpen, openModal, closeModal } = useIsOpen();
 const {
   isOpen: isNewGameModalOpen,
   openModal: openNewGameModal,
   closeModal: closeNewGameModal
 } = useIsOpen();
-
 const { time, resumeTime, pauseTime, resetTime } = useTime();
 
 const increaseTurn = () => {
@@ -84,7 +87,20 @@ const increaseTurn = () => {
 };
 
 const shuffleCards = () => {
-  cardList.value = shuffle(cardList.value);
+  cardList.value = shuffle([...cardList.value]);
+  cardList.value = cardList.value.map((card: ICard, index: number) => {
+    return {
+      ...card,
+      matched: false,
+      position: index,
+      active: false
+    };
+  });
+};
+
+const createGameDeck = () => {
+  const shuffleDeck = shuffle([...deck]).slice(0, difficult.value);
+  cardList.value = createDeck(shuffleDeck);
 };
 
 const restartGame = () => {
@@ -92,6 +108,7 @@ const restartGame = () => {
     closeModal();
   }
   turns.value = 0;
+
   resetTime();
   resumeTime();
 
@@ -113,12 +130,35 @@ const startGame = () => {
 };
 
 const startNewGame = () => {
+  if (loading.value) {
+    return;
+  }
+
   if (gameStarts.value) {
     restartGame();
   } else {
     closeNewGameModal();
     startGame();
   }
+};
+type TDifficulty = 'easy' | 'normal' | 'hard' | 'extreme';
+
+const difficulties: Record<TDifficulty, number> = {
+  easy: 6,
+  normal: 8,
+  hard: 10,
+  extreme: 15
+};
+
+const changeDifficulty = (difficulty: TDifficulty) => {
+  loading.value = true;
+
+  difficult.value = difficulties[difficulty];
+  createGameDeck();
+
+  setTimeout(() => {
+    loading.value = false;
+  }, 3500);
 };
 
 const flipCard = (payload: ICard) => {
@@ -182,8 +222,9 @@ watch(
 );
 
 onBeforeMount(() => {
-  cardList.value = createDeck(deck);
+  createGameDeck();
 });
+
 onMounted(() => {
   openNewGameModal();
 });

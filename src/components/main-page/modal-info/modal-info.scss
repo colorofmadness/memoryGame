@@ -1,0 +1,58 @@
+@use '@assets/style/mixins' as *;
+
+.info {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  justify-items: center;
+  text-align: center;
+  padding: 47px 24px 68px;
+
+  @include adaptive {
+    padding: calc(var(--apx, 1px) * 47) calc(var(--apx, 24px) * 36) calc(var(--apx, 1px) * 68);
+  }
+
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__title {
+    color: var(--primary);
+    font-size: 36px;
+
+    @include adaptive {
+      font-size: calc(var(--apx, 1px) * 36);
+    }
+  }
+
+  &__description {
+    color: var(--secondary);
+    max-width: 232px;
+    font-size: 24px;
+
+    @include adaptive {
+      font-size: calc(var(--apx, 1px) * 24);
+    }
+  }
+
+  .repeat {
+    margin-top: auto;
+    width: 142px;
+    height: 43px;
+    font-size: 16px;
+
+    @include adaptive {
+      font-size: calc(var(--apx, 1px) * 16);
+      width: calc(var(--apx, 1px) * 142);
+      height: calc(var(--apx, 1px) * 43);
+    }
+
+    @include mobile {
+      margin-top: 0;
+    }
+  }
+}

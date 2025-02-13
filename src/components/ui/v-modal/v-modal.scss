@@ -29,7 +29,7 @@
   background-size: contain;
   border-radius: 16px;
 
-  @media (min-width: 901px) and (min-height: 541px) {
+  @include adaptive {
     width: calc(var(--apx, 1px) * 705);
     height: calc(var(--apx, 1px) * 375);
   }

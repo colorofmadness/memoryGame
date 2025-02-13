@@ -4,4 +4,5 @@ export interface ICard {
   value: string;
   variant: number;
   active: boolean;
+  id: number;
 }

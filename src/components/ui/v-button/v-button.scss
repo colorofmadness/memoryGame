@@ -4,10 +4,15 @@
   align-items: center;
   justify-content: center;
   background: var(--primary);
-  color: var(--text-contrast);
+  color: var(--white);
   gap: 10px;
   border-radius: 6px;
-  transition: var(--transition);
+  transition: all 0.2s ease;
+
+  &--active {
+    pointer-events: none;
+    background: var(--tertiary);
+  }
 
   &--disabled {
     pointer-events: none;

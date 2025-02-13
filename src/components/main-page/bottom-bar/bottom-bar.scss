@@ -1,0 +1,26 @@
+@use '@assets/style/mixins' as *;
+
+.bottom-bar {
+  display: flex;
+  position: absolute;
+  font-size: 28px;
+  left: 76px;
+  bottom: 32px;
+  width: 591px;
+  justify-content: space-between;
+
+  @include adaptive {
+    font-size: calc(var(--apx, 1px) * 28);
+    left: calc(var(--apx, 1px) * 76);
+    bottom: calc(var(--apx, 1px) * 32);
+    width: calc(var(--apx, 1px) * 591);
+  }
+
+  @include mobile {
+    width: 100%;
+    left: initial;
+    bottom: initial;
+    position: relative;
+    font-size: 21px;
+  }
+}

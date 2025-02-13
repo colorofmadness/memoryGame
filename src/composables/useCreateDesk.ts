@@ -6,12 +6,15 @@ const createDeck = (deckData: string[]): ICard[] => {
   const list: ICardRaw[] = [];
 
   deckData.forEach((item, index) => {
+    const id = Date.now();
+    
     list.push({
       matched: false,
       value: item,
       variant: 1,
       active: false,
-      position: null
+      position: null,
+      id
     });
 
     list.push({
@@ -19,7 +22,8 @@ const createDeck = (deckData: string[]): ICard[] => {
       variant: 2,
       value: item,
       active: false,
-      position: index
+      position: index,
+      id
     });
   });
 

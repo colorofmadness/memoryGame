@@ -1,5 +1,6 @@
 export interface IButtonProps {
   disabled?: boolean;
+  active?: boolean;
   loading?: boolean;
   type?: HTMLButtonElement['type'];
 }

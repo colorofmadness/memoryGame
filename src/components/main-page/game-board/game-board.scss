@@ -1,0 +1,53 @@
+@use '@assets/style/mixins' as *;
+
+.game-board {
+  margin: 0 auto;
+  display: grid;
+  position: absolute;
+  gap: 10px;
+  left: 76px;
+  top: 120px;
+  width: 591px;
+  height: 790px;
+
+  &--grid-6 {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+  }
+
+  &--grid-8 {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+  }
+
+  &--grid-10 {
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+  }
+
+  &--grid-15 {
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+  }
+
+  @include adaptive {
+    gap: calc(var(--apx, 1px) * 10);
+    left: calc(var(--apx, 1px) * 76);
+    top: calc(var(--apx, 1px) * 120);
+    width: calc(var(--apx, 1px) * 591);
+    height: calc(var(--apx, 1px) * 790);
+  }
+
+  @include mobile {
+    width: 100%;
+    margin: 20px 0;
+    height: calc(100% - 104px);
+    position: relative;
+    left: 0;
+    top: 0;
+  }
+}
+
+.shuffle-cards-move {
+  transition: transform 0.7s ease
+}

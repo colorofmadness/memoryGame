@@ -1,7 +1,7 @@
 <template>
   <div :class="['card', { 'card--active': active }]">
     <div class="card__front">
-      <v-icon :name="`cards/${icon}`" :size="isMobile ? 54 : 92" />
+      <v-icon v-if="icon" :name="`cards/${icon}`" :size="isMobile ? 48 : 64" />
     </div>
     <div class="card__back" />
   </div>

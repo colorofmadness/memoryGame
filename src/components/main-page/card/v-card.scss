@@ -5,6 +5,7 @@
   position: relative;
   transition: transform 0.8s;
   transform-style: preserve-3d;
+  cursor: pointer;
 
   &__front,
   &__back {
@@ -29,6 +30,7 @@
   }
 
   &--active {
+    cursor: default;
     transform: rotateY(180deg);
   }
 }

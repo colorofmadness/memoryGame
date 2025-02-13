@@ -1,8 +1,9 @@
 export interface ICardProps {
   active?: boolean;
-  icon: string;
+  icon?: string;
 }
 
 export const defaultProps = {
-  active: false
+  active: false,
+  icon: ''
 };
