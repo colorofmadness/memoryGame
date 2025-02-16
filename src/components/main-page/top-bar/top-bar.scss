@@ -54,5 +54,14 @@
 
   &__pairs {
     justify-content: flex-end;
+
+    .icon {
+      cursor: pointer;
+      transition: 0.2s ease;
+
+      &:hover, &:focus-visible {
+        color: var(--tertiary);
+      }
+    }
   }
 }

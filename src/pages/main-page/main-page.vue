@@ -4,7 +4,12 @@
     <div class="game">
       <div class="content">
         <div class="phone" />
-        <top-bar :pairs="remainingPairs" :time="time" />
+        <top-bar
+          :pairs="remainingPairs"
+          :time="time"
+          @restart="restartGame"
+          @change-pairs="changeDifficulty"
+        />
 
         <game-board
           :card-list="cardList"
@@ -142,15 +147,21 @@ const startNewGame = () => {
   }
 };
 
-const changeDifficulty = (difficulty: TDifficulty) => {
-  loading.value = true;
+const changeDifficulty = (difficulty: TDifficulty = 'easy') => {
+  if (gameStarts.value) {
+    pauseTime();
+    gameStarts.value = false;
+    openNewGameModal();
+  } else {
+    loading.value = true;
 
-  difficult.value = difficulties[difficulty];
-  createGameDeck();
+    difficult.value = difficulties[difficulty];
+    createGameDeck();
 
-  setTimeout(() => {
-    loading.value = false;
-  }, 3500);
+    setTimeout(() => {
+      loading.value = false;
+    }, 3500);
+  }
 };
 
 const flipCard = (payload: ICard) => {
